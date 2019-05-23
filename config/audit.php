@@ -23,12 +23,23 @@ return [
     */
 
     'user' => [
-        'morph_prefix' => 'user',
-        'guards'       => [
-            'web',
-            'api',
-        ],
-    ],
+        'primary_key' => 'id',
+        'foreign_key' => 'user_id',
+  
+        // replace the line below
+        'model'       => App\User::class,
+  
+        // with this
+        'model'       => App\Models\User::class,
+      ],
+      
+    // 'user' => [
+    //     'morph_prefix' => 'user',
+    //     'guards'       => [
+    //         'web',
+    //         'api',
+    //     ],
+    // ],
 
     /*
     |--------------------------------------------------------------------------
