@@ -10,6 +10,7 @@ class AllowOnlyAdmin
     public function handle($request, Closure $next)
     {
         if (Auth::user()->is_admin) {
+            //dd(Auth::user());
             return $next($request);
         }
         print"Você não tem permissão para ver isso!!!";

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use Response;
+//use Illuminate\Http\Response;
 
 class TarefaController extends Controller
 {
@@ -14,7 +16,8 @@ class TarefaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        //DD("Index");
         return view('tarefa', ['tarefas' => Tarefa::all()]);
     }
 
@@ -25,7 +28,8 @@ class TarefaController extends Controller
      */
     public function create()
     {
-        return view('products.create', ['categories' => Product::CATEGORIES]);
+        return Response::json($tarefa); //Via javaScript
+        //return view('tarefa.create', ['tarefa' => Tarefa::TAREFA]); //Via Http
     }
 
     /**
@@ -45,39 +49,38 @@ class TarefaController extends Controller
      * @param  \App\Models\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function show(Tarefa $tarefa_id)
+    public function show(Tarefa $tarefa)
     {
-        $tarefa = \App\Tarefa::find($tarefa_id);
-
-        return Response::json($tarefa);
-   
-        //return  view('tarefa.show', ['tarefa' => $tarefa]);
+        return Response::json($tarefa); // Via javaScript
+        //return  view('tarefa.show', ['tarefa' => $tarefa]); //Via Http
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, Tarefa $tarefa)
     {
-        $product->update(\request()->all());
-        flash('Product updated')->success();
+        $tarefa->update(\request()->all());
+        //flash('Tarefa editada')->success();
+        return Response::json($tarefa);
         return redirect("products/$product->id");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Tarefa  $tarefa
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Tarefa $tarefa)
     {
-        $product->delete();
-        flash('Product deleted')->success();
-        return redirect('/products');
+        $tarefa->delete();
+        //flash('Tarefa deletada')->success();
+        return Response::json($tarefa->id);
+        //return redirect('/tarefa');
     }
 }

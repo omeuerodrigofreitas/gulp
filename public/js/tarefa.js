@@ -1,18 +1,19 @@
 $(document).ready(function(){
 
-    var url = "/tarefas";
+    var url = "/tarefa";
 
     //exibir formulário modal para edição de tarefas
     $('.open-modal').click(function(){
+        alert
         var tarefa_id = $(this).val();
-
         $.get(url + '/' + tarefa_id, function (data) {
-            //success data
             console.log(data);
             $('#tarefa_id').val(data.id);
             $('#tarefa').val(data.tarefa);
             $('#descricao').val(data.descricao);
-            $('#feito').val(data.feito);
+            $('#feito').prop('checked', data.feito);
+            $('#myModalLabel').html("Ediatr Tarefa");
+            $('#btn-salvar').html("Editar");
             $('#btn-salvar').val("update");
 
             $('#myModal').modal('show');
@@ -21,13 +22,19 @@ $(document).ready(function(){
 
     //exibir formulário modal para criar nova tarefa
     $('#btn-add').click(function(){
+        $('#myModalLabel').html("Cadastrar Nova Tarefa");
         $('#btn-salvar').val("add");
+        $('#btn-salvar').html("Cadastrar");
         $('#frmTarefas').trigger("reset");
+        // $('#frmTarefas').each (function(){
+        //     this.reset();
+        //   });
         $('#myModal').modal('show');
     });
 
     //delete tarefa e remove item da lista
     $('.deletar-tarefa').click(function(){
+        
         var tarefa_id = $(this).val();
 
         $.ajax({
@@ -49,7 +56,7 @@ $(document).ready(function(){
 
     //cria nova tarefa / atualiza tarefa existente
     $("#btn-salvar").click(function (e) {
-        alert("dsjc");
+        
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -86,17 +93,26 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 console.log(data);
+                var feito;
+                if (data.feito == 1) feito = "Feito";
+                else feito = "Não";
 
-                var tarefa = '<tr id="tarefa' + data.id + '"><td>' + data.id + '</td><td>' + data.tarefa + '</td><td>' + data.descricao + '</td><td>' + data.feito + '</td><td>' + data.created_at + '</td>';
+                var tarefa = '<tr id="tarefa' + data.id + '"><td>' + data.id + '</td><td>' + data.tarefa + '</td><td>' + data.descricao + '</td><td>' + feito + '</td><td>' + data.created_at + '</td>';
                 tarefa += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '">Editar</button>';
                 tarefa += '<button class="btn btn-danger btn-xs btn-delete deletar-tarefa" value="' + data.id + '">Deletar</button></td></tr>';
 
                 if (state == "add"){ //if user added a new record
-                    $('#tarefas-listar').append(tarefa);
+                    $("#tarefas-listar").append(tarefa);
+                    //$("#tarefas-listar").live("#tarefa" + tarefa_id);
+                    $(".open-modal").on("click");
+                    //$(document).on("body");
                 }else{ //if user updated an existing record
 
                     $("#tarefa" + tarefa_id).replaceWith( tarefa );
                 }
+
+                // $('#tarefas-listar').live('click', function(){
+                // });
 
                 $('#frmTarefas').trigger("reset");
 

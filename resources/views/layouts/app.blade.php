@@ -55,6 +55,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('tarefa') }}">
+                                        {{ __('Tarefa') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ url('audits') }}">
+                                            {{ __('Auditoria') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -76,5 +83,9 @@
             @yield('content')
         </main>
     </div>
+    <script src="{{asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
+    <script src="{{asset('js/tarefa.js')}}"></script>
+    
 </body>
 </html>

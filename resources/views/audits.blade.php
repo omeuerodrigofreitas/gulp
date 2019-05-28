@@ -6,11 +6,11 @@
           <thead class="thead-dark">
             <tr>
               <th scope="col">Model</th>
-              <th scope="col">Action</th>
-              <th scope="col">User</th>
-              <th scope="col">Time</th>
-              <th scope="col">Old Values</th>
-              <th scope="col">New Values</th>
+              <th scope="col">Ação</th>
+              <th scope="col">Usuario</th>
+              <th scope="col">Data</th>
+              <th scope="col">Valores Antigos</th>
+              <th scope="col">Valores Novos</th>
             </tr>
           </thead>
           <tbody id="audits">
