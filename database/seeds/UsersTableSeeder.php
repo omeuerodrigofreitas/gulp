@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Henrique Brites',
             'email' => 'henriquebrites@live.com',
-            'password' => '$2y$10$lt6fLKYI5AFzvUsv4Gbdc.7F8difMgAqa2UD9hmosuG9X9x.ZEpGG', // secret
+            'password' => '$2y$10$lt6fLKYI5AFzvUsv4Gbdc.7F8difMgAqa2UD9hmosuG9X9x.ZEpGG', // 123456
             'is_admin' => false,
         ]);
     }
