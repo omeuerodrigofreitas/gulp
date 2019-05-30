@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     //exibir formulário modal para edição de tarefas
     $('.open-modal').click(function(){
-        alert
+        alert("Clicou no editar");
         var tarefa_id = $(this).val();
         $.get(url + '/' + tarefa_id, function (data) {
             console.log(data);
@@ -75,7 +75,7 @@ $(document).ready(function(){
         var state = $('#btn-salvar').val();
 
         var type = "POST"; //para criar novo recurso
-        var tarefa_id = $('#tarefa_id').val();;
+        var tarefa_id = $('#tarefa_id').val();
         var my_url = url;
 
         if (state == "update"){
@@ -101,22 +101,33 @@ $(document).ready(function(){
                 tarefa += '<td><button class="btn btn-warning btn-xs btn-detail open-modal" value="' + data.id + '">Editar</button>';
                 tarefa += '<button class="btn btn-danger btn-xs btn-delete deletar-tarefa" value="' + data.id + '">Deletar</button></td></tr>';
 
-                if (state == "add"){ //if user added a new record
+                if (state == "add"){
                     $("#tarefas-listar").append(tarefa);
-                    //$("#tarefas-listar").live("#tarefa" + tarefa_id);
-                    $(".open-modal").on("click");
-                    //$(document).on("body");
-                }else{ //if user updated an existing record
+                    //$('body').load('#tarefas-listar');
+                    //$('body').on('load', "#tarefas-listar");
+
+                    // $('.open-modal').live('click', function(){
+                    //     $("#tarefas-listar").append(tarefa);
+                    // });
+
+                    //$("#tarefas-listar").onload();
+                    
+                    // $(document).ready(function(){
+                    //     $("#tarefas-listar").append(tarefa);
+                    // });
+                   // $("#tarefas-listar").on('click');
+
+                    
+                }else{ //se for update 
 
                     $("#tarefa" + tarefa_id).replaceWith( tarefa );
                 }
 
-                // $('#tarefas-listar').live('click', function(){
-                // });
-
                 $('#frmTarefas').trigger("reset");
 
-                $('#myModal').modal('hide')
+                $('#myModal').modal('hide');
+                //$('body').load('#tarefas-listar');
+                window.location.reload(true);
             },
             error: function (data) {
                 console.log('Error:', data);
